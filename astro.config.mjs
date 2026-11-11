@@ -1,24 +1,38 @@
-// @ts-check
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
+import remarkMath from 'remark-math';
+import rehypeKatex from 'rehype-katex';
 
-// https://astro.build/config
+// https://astro.build
 export default defineConfig({
+	markdown: {
+		remarkPlugins: [remarkMath],
+		rehypePlugins: [rehypeKatex],
+	},
 	integrations: [
 		starlight({
-			title: 'My Docs',
-			social: [{ icon: 'github', label: 'GitHub', href: 'https://github.com/withastro/starlight' }],
+			title: 'MaFyKe',
+			routeMiddleware: './src/routeData.ts',
+			social: [
+				{
+					label: 'GitHub',
+					icon: 'github',
+					href: 'https://github.com'
+				}
+			],
+			customCss: ['katex/dist/katex.css'],
 			sidebar: [
 				{
-					label: 'Guides',
-					items: [
-						// Each item here is one entry in the navigation menu.
-						{ label: 'Example Guide', slug: 'guides/example' },
-					],
+					label: 'Matematik',
+					items: [{ autogenerate: { directory: 'matematik' } }]
 				},
 				{
-					label: 'Reference',
-					items: [{ autogenerate: { directory: 'reference' } }],
+					label: 'Fysik',
+					items: [{ autogenerate: { directory: 'fysik' } }]
+				},
+				{
+					label: 'Kemi',
+					items: [{ autogenerate: { directory: 'kemi' } }]
 				},
 			],
 		}),
