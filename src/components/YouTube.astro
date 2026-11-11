@@ -4,9 +4,11 @@ interface Props {
 	title?: string;
 }
 const { id, title = 'Videogenomgång' } = Astro.props;
-const doman = 'https://' + '://youtube-nocookie.com';
+const doman = 'https://' + 'www.' + 'youtube-nocookie.com';
 const mapp = '/em' + 'bed/';
 const videoUrl = doman + mapp + id + '?rel=0&vq=hd720&playsinline=1';
+---
+
 ---
 
 <div class="media-ram">
