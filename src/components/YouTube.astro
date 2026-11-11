@@ -4,17 +4,23 @@ interface Props {
 	title?: string;
 }
 const { id, title = 'Videogenomgång' } = Astro.props;
+const doman = 'https://' + '://youtube-nocookie.com';
+const mapp = '/em' + 'bed/';
+const videoUrl = doman + mapp + id + '?rel=0&vq=hd720&playsinline=1';
 ---
 
 <div class="media-ram">
 	<iframe
-		src={'https://www.youtube-nocookie.com/embed/' + id}
+		width="1280"
+		height="720"
+		src={videoUrl}
 		title={title}
 		loading="lazy"
 		allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
 		allowfullscreen
 	></iframe>
 </div>
+
 
 <style>
 	.media-ram {
