@@ -22,6 +22,7 @@ export default defineConfig({
 			routeMiddleware: './src/routeData.ts',
 			components: {
 				PageTitle: './src/components/PageHeaderWithPrereqs.astro',
+				SocialIcons: './src/components/HeaderLinks.astro',
 			},
 			social: [
 				{
@@ -30,7 +31,7 @@ export default defineConfig({
 					href: 'https://github.com/sanparsan/MaFyKe'
 				}
 			],
-			customCss: ['katex/dist/katex.css'],
+			customCss: ['katex/dist/katex.css', './src/styles/custom.css'],
 			sidebar: [
 				{
 					label: 'Matematik',

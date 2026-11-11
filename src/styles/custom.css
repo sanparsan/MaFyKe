@@ -1,0 +1,71 @@
+/* 1. Ändra sajtens accentfärg (länkar, aktiva menyval, knappar) */
+:root {
+	--sl-color-accent-low: #132a4a;
+	--sl-color-accent: #2563eb;
+	--sl-color-accent-high: #93c5fd;
+
+    /* Färg enbart för :::note-rutor (exempel: grön) */
+	--sl-color-blue-low: #064e3b;
+	--sl-color-blue: #10b981;
+	--sl-color-blue-high: #a7f3d0;
+}
+
+/* Accentfärger för ljust läge */
+:root[data-theme='light'] {
+	--sl-color-accent-low: #dbeafe;
+	--sl-color-accent: #1d4ed8;
+	--sl-color-accent-high: #1e3a8a;
+
+    /* Färg enbart för :::note-rutor */
+	--sl-color-blue-low: #ecfdf5;
+	--sl-color-blue: #059669;
+	--sl-color-blue-high: #065f46;
+}
+
+/* 2. Ändra teckenstorlek och radavstånd i brödtexten */
+.sl-markdown-content {
+	font-size: 1.05rem;
+	line-height: 1.7;
+}
+
+/* 3. Justera storleken på rubrikerna */
+
+/* Justera storleken på sidans huvudtitel (från frontmatter "title") */
+h1#_top {
+	font-size: 2.1rem;
+	line-height: 1.2;
+}
+
+.sl-markdown-content h1 {
+	font-size: 1.9rem;
+}
+
+.sl-markdown-content h2 {
+	font-size: 1.45rem;
+	margin-top: 2rem;
+}
+
+.sl-markdown-content h3 {
+	font-size: 1.2rem;
+	margin-top: 1.5rem;
+}
+
+/* 4. Dölj länkkedjan bredvid rubriker */
+.sl-anchor-link {
+	display: none;
+}
+/* Gör "Föregående"- och "Nästa"-rutorna längst ner mer kompakta */
+.pagination-links a {
+	padding: 0.65rem 1rem;
+	gap: 0.4rem;
+}
+
+/* Minska texten "Nästa" / "Föregående" */
+.pagination-links a > span {
+	font-size: 0.8rem;
+}
+
+/* Minska sidtiteln inuti rutan */
+.pagination-links .link-title {
+	font-size: 1rem;
+}

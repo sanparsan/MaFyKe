@@ -1,0 +1,193 @@
+---
+import { getCollection } from 'astro:content';
+
+const allaSidor = await getCollection('docs');
+const lektioner = allaSidor.filter(
+	(s) => s.id !== '' && s.id !== 'index' && s.id !== 'om'
+);
+
+interface OmradeInfo {
+	slug: string;
+	namn: string;
+	antal: number;
+	forstaUrl: string;
+	ordning: number;
+}
+
+function formateraNamn(slug: string) {
+	if (slug === 'allmant') return 'Övrigt';
+	return slug.replace(/-/g, ' ').replace(/^./, (c) => c.toUpperCase());
+}
+
+const amnen = [
+	{ key: 'matematik', label: 'Matematik', farg: '#3b82f6', ikon: '📐', beskrivning: 'Samband, funktioner, geometri och analys.' },
+	{ key: 'fysik', label: 'Fysik', farg: '#10b981', ikon: '⚛️', beskrivning: 'Krafter, rörelse, vågor, energi och universum.' },
+	{ key: 'kemi', label: 'Kemi', farg: '#f59e0b', ikon: '🧪', beskrivning: 'Materiens byggnad, reaktioner och jämvikter.' },
+];
+
+const amnesData = amnen.map((amne) => {
+	const amnesLektioner = lektioner.filter((s) =>
+		s.id.toLowerCase().startsWith(amne.key + '/')
+	);
+
+	// Sortera efter sidebar.order så att första lektionen i varje område hamnar överst
+	amnesLektioner.sort(
+		(a, b) => (a.data.sidebar?.order ?? 999) - (b.data.sidebar?.order ?? 999)
+	);
+
+	const omradenMap = new Map<string, OmradeInfo>();
+
+	amnesLektioner.forEach((sida) => {
+		const rentId = sida.id.replace(/\.mdx?$/, '');
+		const delar = rentId.split('/');
+		const kapSlug = delar.length > 2 ? delar.at(1)! : 'allmant';
+		const url = `/${rentId}/`;
+
+		if (!omradenMap.has(kapSlug)) {
+			omradenMap.set(kapSlug, {
+				slug: kapSlug,
+				namn: formateraNamn(kapSlug),
+				antal: 1,
+				forstaUrl: url,
+				ordning: sida.data.sidebar?.order ?? 999,
+			});
+		} else {
+			const befintlig = omradenMap.get(kapSlug)!;
+			befintlig.antal += 1;
+		}
+	});
+
+	return {
+		...amne,
+		totaltAntal: amnesLektioner.length,
+		omraden: Array.from(omradenMap.values()),
+	};
+});
+---
+
+<div class="schema-grid">
+	{amnesData.map((amne) => (
+		<section class="amne-kort" style={`--amne-farg: ${amne.farg};`}>
+			<header class="amne-huvud">
+				<div class="amne-titelrad">
+					<span class="amne-ikon">{amne.ikon}</span>
+					<h3>{amne.label}</h3>
+				</div>
+				<span class="amne-total">{amne.totaltAntal} {amne.totaltAntal === 1 ? 'lektion' : 'lektioner'}</span>
+			</header>
+
+			<p class="amne-beskrivning">{amne.beskrivning}</p>
+
+			{amne.omraden.length > 0 ? (
+				<ul class="omrade-lista">
+					{amne.omraden.map((omrade) => (
+						<li>
+							<a href={omrade.forstaUrl} class="omrade-lank">
+								<span class="omrade-namn">{omrade.namn}</span>
+								<span class="omrade-meta">
+									{omrade.antal} {omrade.antal === 1 ? 'sida' : 'sidor'} →
+								</span>
+							</a>
+						</li>
+					))}
+				</ul>
+			) : (
+				<p class="omrade-tom">Innehåll publiceras inom kort.</p>
+			)}
+		</section>
+	))}
+</div>
+
+<style>
+	.schema-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+		gap: 1.25rem;
+		margin: 1.75rem 0;
+	}
+		.amne-kort {
+		margin-top: 0 !important;
+		background: var(--sl-color-bg-nav);
+		border: 1px solid var(--sl-color-gray-5);
+		border-top: 4px solid var(--amne-farg);
+		border-radius: 0.85rem;
+		padding: 1.25rem;
+		display: flex;
+		flex-direction: column;
+		gap: 0.75rem;
+	}
+
+	.amne-huvud {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		gap: 0.5rem;
+	}
+	.amne-titelrad {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+	}
+	.amne-titelrad h3 {
+		margin: 0 !important;
+		font-size: 1.2rem !important;
+	}
+	.amne-ikon {
+		font-size: 1.35rem;
+	}
+	.amne-total {
+		font-size: 0.78rem;
+		color: var(--sl-color-gray-3);
+		background: var(--sl-color-bg);
+		padding: 0.2rem 0.55rem;
+		border-radius: 999px;
+		border: 1px solid var(--sl-color-gray-5);
+	}
+	.amne-beskrivning {
+		margin: 0 !important;
+		font-size: 0.88rem;
+		color: var(--sl-color-gray-2);
+		line-height: 1.45;
+	}
+	.omrade-lista {
+		list-style: none !important;
+		margin: 0.25rem 0 0 0 !important;
+		padding: 0 !important;
+		display: flex;
+		flex-direction: column;
+		gap: 0.45rem;
+	}
+	.omrade-lista li {
+		margin: 0 !important;
+	}
+	.omrade-lank {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding: 0.55rem 0.75rem;
+		border-radius: 0.55rem;
+		background: var(--sl-color-bg);
+		border: 1px solid var(--sl-color-gray-5);
+		color: var(--sl-color-white);
+		text-decoration: none;
+		font-size: 0.92rem;
+		transition: border-color 0.15s ease, transform 0.15s ease;
+	}
+	.omrade-lank:hover {
+		border-color: var(--amne-farg);
+		transform: translateX(3px);
+	}
+	.omrade-namn {
+		font-weight: 600;
+	}
+	.omrade-meta {
+		font-size: 0.8rem;
+		color: var(--sl-color-gray-3);
+	}
+	.omrade-tom {
+		margin: 0.5rem 0 0 0 !important;
+		font-size: 0.85rem;
+		color: var(--sl-color-gray-3);
+		font-style: italic;
+	}
+</style>

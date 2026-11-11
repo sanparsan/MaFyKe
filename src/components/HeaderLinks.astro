@@ -1,0 +1,18 @@
+---
+import Default from '@astrojs/starlight/components/SocialIcons.astro';
+---
+
+<a href="/om/" class="om-lank">Om</a>
+<Default {...Astro.props} />
+
+<style>
+	.om-lank {
+		color: var(--sl-color-gray-2);
+		text-decoration: none;
+		font-size: 0.9rem;
+		margin-right: 0.75rem;
+	}
+	.om-lank:hover {
+		color: var(--sl-color-white);
+	}
+</style>
