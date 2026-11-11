@@ -1,0 +1,96 @@
+---
+import Default from '@astrojs/starlight/components/PageTitle.astro';
+import { getCollection } from 'astro:content';
+
+const { entry } = Astro.locals.starlightRoute;
+const forkunskaper = entry.data.forkunskaper || [];
+
+// Hämta alla lektioner för att automatiskt slå upp rätt titel och ämne
+const allaSidor = await getCollection('docs');
+
+const lankadeForkunskaper = forkunskaper.map((sokvag) => {
+	// Städa bort eventuella snedstreck i början och slutet för att matcha Astro-id
+	const rentId = sokvag.replace(/^\/|\/$/g, '');
+	const match = allaSidor.find(
+		(sida) => sida.id === rentId || sida.id.replace(/\.mdx?$/, '') === rentId
+	);
+
+	// Plocka ut ämnet från första delen av sökvägen (t.ex. "matematik" -> "Matematik")
+	const amneRaw = rentId.split('/')[0] || '';
+	const amne = amneRaw.charAt(0).toUpperCase() + amneRaw.slice(1);
+
+	return {
+		url: `/${rentId}/`,
+		titel: match ? match.data.title : rentId.split('/').pop(),
+		amne: amne,
+	};
+});
+---
+
+<Default {...Astro.props} />
+
+{lankadeForkunskaper.length > 0 && (
+	<aside class="forkunskaps-ruta" aria-label="Rekommenderade förkunskaper">
+		<div class="forkunskaps-rubrik">
+			<span class="ikon">🧭</span>
+			<strong>Bra att kunna innan du börjar:</strong>
+		</div>
+		<p class="forkunskaps-text">
+			Du kan utforska den här sidan fritt, men för att hänga med i alla steg rekommenderar vi att du först har koll på:
+		</p>
+		<ul class="forkunskaps-lista">
+			{lankadeForkunskaper.map((item) => (
+				<li>
+					<a href={item.url}>{item.titel}</a>
+					{item.amne && <span class="amnes-tagg">{item.amne}</span>}
+				</li>
+			))}
+		</ul>
+	</aside>
+)}
+
+<style>
+	.forkunskaps-ruta {
+		margin-top: 1.25rem;
+		margin-bottom: 1.75rem;
+		padding: 1rem 1.25rem;
+		border-left: 4px solid var(--sl-color-accent);
+		background-color: var(--sl-color-bg-nav);
+		border-radius: 0 0.5rem 0.5rem 0;
+	}
+	.forkunskaps-rubrik {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		font-size: 1rem;
+		color: var(--sl-color-white);
+	}
+	.forkunskaps-text {
+		margin: 0.4rem 0 0.75rem 0;
+		font-size: 0.9rem;
+		color: var(--sl-color-gray-2);
+	}
+	.forkunskaps-lista {
+		margin: 0;
+		padding-left: 1.2rem;
+		display: flex;
+		flex-direction: column;
+		gap: 0.4rem;
+	}
+	.forkunskaps-lista a {
+		color: var(--sl-color-text-accent);
+		font-weight: 600;
+		text-decoration: none;
+	}
+	.forkunskaps-lista a:hover {
+		text-decoration: underline;
+	}
+	.amnes-tagg {
+		margin-left: 0.5rem;
+		font-size: 0.75rem;
+		padding: 0.15rem 0.5rem;
+		border-radius: 999px;
+		background-color: var(--sl-color-gray-6);
+		color: var(--sl-color-gray-2);
+	}
+</style>

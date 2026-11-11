@@ -10,9 +10,19 @@ export default defineConfig({
 		rehypePlugins: [rehypeKatex],
 	},
 	integrations: [
-		starlight({
+				starlight({
 			title: 'MaFyKe',
+			defaultLocale: 'root',
+			locales: {
+				root: {
+					label: 'Svenska',
+					lang: 'sv',
+				},
+			},
 			routeMiddleware: './src/routeData.ts',
+			components: {
+				PageTitle: './src/components/PageHeaderWithPrereqs.astro',
+			},
 			social: [
 				{
 					label: 'GitHub',
@@ -36,5 +46,6 @@ export default defineConfig({
 				},
 			],
 		}),
+
 	],
 });

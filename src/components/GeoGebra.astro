@@ -1,0 +1,38 @@
+---
+interface Props {
+	id: string;
+	title?: string;
+	height?: number;
+}
+const { id, title = 'Interaktiv GeoGebra-figur', height = 500 } = Astro.props;
+
+const doman = 'https://www.geogebra.org';
+const sokvag = '/material/if' + 'rame/id/' + id;
+const installningar = `/width/800/height/${height}/border/888888/sfsb/true/smb/false/stb/false/stbh/false/ai/false/asb/false/sri/true/rc/false/ld/false/sdz/true/ctl/false`;
+const ggbUrl = doman + sokvag + installningar;
+---
+
+<div class="ggb-ram" style={`height: ${height}px;`}>
+	<iframe
+		src={ggbUrl}
+		title={title}
+		loading="lazy"
+		allowfullscreen
+	></iframe>
+</div>
+
+<style>
+	.ggb-ram {
+		width: 100%;
+		overflow: hidden;
+		border-radius: 0.5rem;
+		margin: 1.5rem 0;
+		border: 1px solid var(--sl-color-gray-5);
+		background: #fff;
+	}
+	.ggb-ram iframe {
+		width: 100%;
+		height: 100%;
+		border: 0;
+	}
+</style>

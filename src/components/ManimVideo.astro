@@ -1,0 +1,34 @@
+---
+interface Props {
+	src: string;
+	caption?: string;
+	loop?: boolean;
+}
+const { src, caption, loop = false } = Astro.props;
+---
+
+<figure class="manim-figur">
+	<video controls loop={loop} preload="metadata" playsinline>
+		<source src={src} type="video/mp4" />
+		Din webbläsare stöder inte uppspelning av MP4-video.
+	</video>
+	{caption && <figcaption>{caption}</figcaption>}
+</figure>
+
+<style>
+	.manim-figur {
+		margin: 1.5rem 0;
+	}
+	.manim-figur video {
+		width: 100%;
+		border-radius: 0.5rem;
+		border: 1px solid var(--sl-color-gray-5);
+		background: #000;
+	}
+	.manim-figur figcaption {
+		margin-top: 0.5rem;
+		font-size: 0.875rem;
+		color: var(--sl-color-gray-3);
+		text-align: center;
+	}
+</style>

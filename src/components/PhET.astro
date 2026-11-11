@@ -1,0 +1,33 @@
+---
+interface Props {
+	src: string;
+	title?: string;
+	height?: number;
+}
+const { src, title = 'Interaktiv PhET-simulering', height = 550 } = Astro.props;
+---
+
+<div class="phet-ram" style={`height: ${height}px;`}>
+	<iframe
+		src={src}
+		title={title}
+		loading="lazy"
+		allowfullscreen
+	></iframe>
+</div>
+
+<style>
+	.phet-ram {
+		width: 100%;
+		overflow: hidden;
+		border-radius: 0.5rem;
+		margin: 1.5rem 0;
+		border: 1px solid var(--sl-color-gray-5);
+		background: #000;
+	}
+	.phet-ram iframe {
+		width: 100%;
+		height: 100%;
+		border: 0;
+	}
+</style>
