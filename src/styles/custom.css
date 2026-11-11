@@ -69,10 +69,15 @@ h1#_top {
 .pagination-links .link-title {
 	font-size: 1rem;
 }
-/* Visa Om-länken och GitHub i toppmenyn även på mobilskärmar */
-header.header .social-icons {
+/* Visa Om-länken och GitHub-loggan i toppmenyn även på mobil */
+header.header .right-group {
 	display: flex !important;
 	align-items: center;
 	gap: 0.5rem;
 }
 
+header.header .social-icons {
+	display: flex !important;
+	align-items: center;
+	gap: 0.5rem;
+}
