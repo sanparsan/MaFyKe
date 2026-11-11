@@ -17,7 +17,7 @@ export default defineConfig({
 				{
 					label: 'GitHub',
 					icon: 'github',
-					href: 'https://github.com'
+					href: 'https://github.com/sanparsan/MaFyKe'
 				}
 			],
 			customCss: ['katex/dist/katex.css'],
