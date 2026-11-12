@@ -1,0 +1,193 @@
+<div class="sinus-sim">
+	<div class="sinus-kontroller">
+		<button type="button" class="ljud-knapp" data-spelar="false">
+			▶ Spela ton
+		</button>
+
+		<label class="reglage-grupp">
+			<span>Frekvens ( <i>f</i> ): <strong class="frekvens-varde">440</strong> Hz</span>
+			<input type="range" class="frekvens-slider" min="110" max="880" step="1" value="440" />
+		</label>
+
+		<label class="reglage-grupp">
+			<span>Amplitud (<i>A</i>): <strong class="amplitud-varde">0.50</strong></span>
+			<input type="range" class="amplitud-slider" min="0" max="1" step="0.01" value="0.5" />
+		</label>
+	</div>
+
+	<canvas class="sinus-canvas" width="800" height="280"></canvas>
+	<p class="sinus-formel">y(t) = 0.50 · sin(2π · 440 · t)</p>
+</div>
+
+<script>
+	document.querySelectorAll('.sinus-sim').forEach((container) => {
+		const btn = container.querySelector('.ljud-knapp') as HTMLButtonElement;
+		const freqSlider = container.querySelector('.frekvens-slider') as HTMLInputElement;
+		const ampSlider = container.querySelector('.amplitud-slider') as HTMLInputElement;
+		const freqText = container.querySelector('.frekvens-varde') as HTMLElement;
+		const ampText = container.querySelector('.amplitud-varde') as HTMLElement;
+		const formulaText = container.querySelector('.sinus-formel') as HTMLElement;
+		const canvas = container.querySelector('.sinus-canvas') as HTMLCanvasElement;
+		const ctx = canvas.getContext('2d')!;
+
+		let audioCtx: AudioContext | null = null;
+		let osc: OscillatorNode | null = null;
+		let gainNode: GainNode | null = null;
+		let isPlaying = false;
+
+		function ritaGraf() {
+			const f = Number(freqSlider.value);
+			const A = Number(ampSlider.value);
+
+			freqText.textContent = String(f);
+			ampText.textContent = A.toFixed(2);
+			formulaText.textContent = `y(t) = ${A.toFixed(2)} · sin(2π · ${f} · t)`;
+
+			const w = canvas.width;
+			const h = canvas.height;
+			const midY = h / 2;
+			const isDark = document.documentElement.dataset.theme !== 'light';
+
+			ctx.clearRect(0, 0, w, h);
+
+			// Bakgrund och axlar
+			ctx.strokeStyle = isDark ? 'rgba(255, 255, 255, 0.15)' : 'rgba(0, 0, 0, 0.15)';
+			ctx.lineWidth = 1;
+			ctx.beginPath();
+			ctx.moveTo(0, midY);
+			ctx.lineTo(w, midY);
+			ctx.stroke();
+
+			// Sinuskurva (tidsfönster motsvarar 10 ms så 110–880 Hz syns tydligt)
+			const tidsFonster = 0.01;
+			const maxUtslag = (h / 2) - 24;
+
+			ctx.strokeStyle = isDark ? '#60a5fa' : '#2563eb';
+			ctx.lineWidth = 3;
+			ctx.beginPath();
+
+			for (let px = 0; px <= w; px++) {
+				const t = (px / w) * tidsFonster;
+				const y = midY - A * maxUtslag * Math.sin(2 * Math.PI * f * t);
+				if (px === 0) ctx.moveTo(px, y);
+				else ctx.lineTo(px, y);
+			}
+			ctx.stroke();
+		}
+
+		function uppdateraLjud() {
+			if (!audioCtx || !osc || !gainNode) return;
+			const f = Number(freqSlider.value);
+			const A = Number(ampSlider.value);
+			// Mjuk övergång utan knäppningar i högtalaren (max 0.4 för behaglig volym)
+			osc.frequency.setTargetAtTime(f, audioCtx.currentTime, 0.015);
+			gainNode.gain.setTargetAtTime(A * 0.4, audioCtx.currentTime, 0.015);
+		}
+
+		btn.addEventListener('click', () => {
+			if (!isPlaying) {
+				audioCtx = new (window.AudioContext || (window as any).webkitAudioContext)();
+				osc = audioCtx.createOscillator();
+				gainNode = audioCtx.createGain();
+
+				osc.type = 'sine';
+				osc.frequency.value = Number(freqSlider.value);
+				gainNode.gain.value = Number(ampSlider.value) * 0.4;
+
+				osc.connect(gainNode);
+				gainNode.connect(audioCtx.destination);
+				osc.start();
+
+				isPlaying = true;
+				btn.textContent = '⏹ Stoppa ton';
+				btn.dataset.spelar = 'true';
+			} else {
+				if (gainNode && audioCtx) {
+					gainNode.gain.setTargetAtTime(0, audioCtx.currentTime, 0.015);
+				}
+				setTimeout(() => {
+					osc?.stop();
+					audioCtx?.close();
+					osc = null;
+					gainNode = null;
+					audioCtx = null;
+				}, 40);
+
+				isPlaying = false;
+				btn.textContent = '▶ Spela ton';
+				btn.dataset.spelar = 'false';
+			}
+		});
+
+		freqSlider.addEventListener('input', () => {
+			ritaGraf();
+			uppdateraLjud();
+		});
+
+		ampSlider.addEventListener('input', () => {
+			ritaGraf();
+			uppdateraLjud();
+		});
+
+		// Rita om grafen om besökaren byter mellan ljust och mörkt läge
+		new MutationObserver(ritaGraf).observe(document.documentElement, {
+			attributes: true,
+			attributeFilter: ['data-theme'],
+		});
+
+		ritaGraf();
+	});
+</script>
+
+<style>
+	.sinus-sim {
+		margin: 1.5rem 0;
+		padding: 1.25rem;
+		border: 1px solid var(--sl-color-gray-5);
+		border-radius: 0.75rem;
+		background: var(--sl-color-bg-nav);
+	}
+	.sinus-kontroller {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 1.25rem;
+		align-items: center;
+		margin-bottom: 1rem;
+	}
+	.ljud-knapp {
+		padding: 0.55rem 1.1rem;
+		border-radius: 0.5rem;
+		border: none;
+		background: var(--sl-color-accent);
+		color: #ffffff;
+		font-weight: 600;
+		cursor: pointer;
+		min-width: 8.5rem;
+	}
+	.ljud-knapp[data-spelar='true'] {
+		background: #dc2626;
+	}
+	.reglage-grupp {
+		display: flex;
+		flex-direction: column;
+		gap: 0.3rem;
+		flex: 1;
+		min-width: 180px;
+		font-size: 0.92rem;
+	}
+	.sinus-canvas {
+		width: 100%;
+		height: auto;
+		display: block;
+		border-radius: 0.5rem;
+		background: var(--sl-color-bg);
+		border: 1px solid var(--sl-color-gray-6);
+	}
+	.sinus-formel {
+		margin: 0.75rem 0 0;
+		text-align: center;
+		font-family: var(--sl-font-mono);
+		font-size: 0.9rem;
+		color: var(--sl-color-gray-2);
+	}
+</style>

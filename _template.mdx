@@ -1,5 +1,5 @@
 ---
-title: Lektionens rubrik här
+title: Sidrubrik
 description: Kort sammanfattning av lektionen.
 # forkunskaper:
 #   - /matematik/omrade/lektion/
@@ -7,39 +7,45 @@ description: Kort sammanfattning av lektionen.
 
 import YouTube from '../../../../components/YouTube.astro';
 import GeoGebra from '../../../../components/GeoGebra.astro';
+import Desmos from '../../../../components/Desmos.astro';
 import PhET from '../../../../components/PhET.astro';
 import ManimVideo from '../../../../components/ManimVideo.astro';
 
-Kort och intresseväckande inledning som förklarar varför området är spännande.
 
-## Visuell förklaring (Manim)
+{/* Lägga in bilder från assets */}
+{/*![Trigonometri definitioner](../../../../assets/matematik/trigdef.png)*/}
+
+{/* Lägga in bilder från public/bilder (html) och styra storlek */}
+{/*<img src="/bilder/filnamn.filtyp" alt="namntag" style="max-width: 500px; width: 100%; height: auto;" />*/}
+
 
 {/* För lokala korta MP4-klipp (lägg filen i public/videos/): */}
 {/* <ManimVideo src="/videos/ditt-klipp.mp4" caption="Beskrivning av animeringen." /> */}
 
-{/* För längre genomgångar på YouTube (ange koden efter v= i länken): */}
+{/* YouTube embed: */}
 {/* <YouTube id="DITT_YOUTUBE_ID" title="Videogenomgång" /> */}
 
-## Utforska själv
-
-{/* Interaktiv GeoGebra-figur (ange material-ID från GeoGebra): */}
+{/* GeoGebra embed */}
 {/* <GeoGebra id="DITT_GEOGEBRA_ID" height={500} /> */}
 
-{/* Interaktiv PhET-simulering (klistra in länken från PhETs inbäddningskod): */}
+{/* PhET embed */}
 {/* <PhET src="https://colorado.edu..." title="PhET-simulering" /> */}
 
-## Formler och teori
+{/* Desmos embed */}
+{/*<Desmos id="ytjdkydlmh" /> */}
 
-Blockformler skrivs med `$$` på egna tomma rader:
+{/*:::note[Viktig formel]
+asdf
+:::*/}
 
-$$
-\sin^2(x) + \cos^2(x) = 1
-$$
+{/*:::tip[Tips]
+asdf
+::: */}
 
-:::note[Viktig formel]
-Här kan du lyfta fram nyckelregler eller definitioner.
-:::
+{/*:::caution[asdf]
+asdf
+::: */}
 
-:::tip[Tips]
-Kom ihåg att ta bort `{/*` och `*/}` runt de komponenter du vill visa på sidan, och radera de `import`-rader du inte använder.
-:::
+{/*:::danger[Varning]
+asdf
+::: */}

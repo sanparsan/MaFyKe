@@ -1,7 +1,7 @@
 ---
 # tableOfContents: true*
 title: Trigonometriska funktioner
-description: Kort sammanfattning av lektionen.
+description: Trigonometriska funktioner
 forkunskaper:
 - /matematik/trigonometri/trigonometrins-grunder/
 - /matematik/trigonometri/enhetscirkeln/
@@ -13,19 +13,36 @@ import GeoGebra from '../../../../components/GeoGebra.astro';
 import PhET from '../../../../components/PhET.astro';
 import Desmos from '../../../../components/Desmos.astro';
 import ManimVideo from '../../../../components/ManimVideo.astro';
+import SinusLjud from '../../../../components/SinusLjud.astro';
 
-Trigonometriska funktioner beskriver extremt mycket inom teknik och naturvetenskap.
- Ljud, ljus, växelström och till och med atomfysik är exempel på områden där man måste förstå
- trigonometriska funktioner.
+Trigonometriska funktioner är funktioner med sinus ($\sin$), cos ($\cos$) och tangens ($\tan$).
+
+
+Ett exempel på en allmän sinusfunktion är $y=f(x)=A\sin(kx+\varphi)+d$\
+där $A$, $k$, $\varphi$ och $d$ är konstanter (vanliga tal) som kan ändras så att funktionens 
+graf får olika utseende.
+
+
+Trigonometriska funktioner används extremt mycket inom teknik och naturvetenskap:
+* Alla typer av vågor som ljud och ljus.
+* All trådlös kommunikation (radio, WiFi, 5G, GPS, Bluetooth...) då detta är ljus. 
+* Svängande fjädrar och annat som oscillerar, tex växelström & högtalarmembran.
+* Andra processer som har periodiskt förlopp (upprepar sig med jämna intervall).
+* Atomorbitler och vissa bindningar inom kemi.
+* Vid komprimering av datafiler tex ljud (musiken på Spotify), bild (JPEG), video (mp4). 
+* Varje gång du lägger ett filter på en bild du tagit används ett "matematiskt maskineri" baserat på sinus-
+och cosinusfunktioner.
+
+*Trigonometriska funktioner, speciellt sinus och cosinus, används i princip i all elektronik du 
+kan tänka dig!*
+
+
 
 ## Animeringar 
-I Manim-animeringen nedan visas hur vi skapar funktionen $y=\sin(x)$ ur enhetscirkeln.
-Spela den i helskärmsläge så syns detaljerna.
+I Manim-animeringen nedan visas hur vi skapar funktionen $y=\sin(x)$ ur enhetscirkeln.\
+Spela den i helskärmsläge så syns detaljerna bäst.
 
 <ManimVideo src="/videos/enhetscirkeln-sinusgraf.mp4" caption="Enhetscirkeln till sin(x)." />
-
-Samma video men inbäddad från YouTube (bara för att se hur det funkar)
-<YouTube id="eTnMARy8pLM" title="Enhetscirkeln till sinusfunktionen" />
 
 På samma sätt kan vi göra med $\cos(x)$. Enda skillnaden är att $y$-axeln i grafen blir de värden
 som vi har på $x$-axeln i enhetscirkeln, eftersom det är på $x$-axeln vi läser av $\cos$-värdena.
@@ -35,7 +52,8 @@ I nedanstående animering från [PhET](https://phet.colorado.edu/) kan du själv
 Här kan du välja på $\sin$, $\cos$ eller $\tan$, samt på grader och radianer.
 Du kan även välja att visa stardardvinklarna (special angles) och du kan välja att gå vilket 
 håll du vill (moturs eller medurs) i enhetscirkeln, samt flera varv för att se hur
-standardvärdena återkommer periodiskt.
+standardvärdena återkommer periodiskt. \
+Dra i röda pricken!
 
 <PhET src="https://phet.colorado.edu/sims/html/trig-tour/latest/trig-tour_en.html" title="Trig tour" />
 
@@ -49,14 +67,58 @@ Vilken parameter styr vad?
 
 <Desmos id="ytjdkydlmh" />
 
-{/* <GeoGebra id="DITT_GEOGEBRA_ID" height={500} /> */}
+## Ljud (toner) som exempel
 
+I $y=f(x)=A\sin(kx+\varphi)+d$ bestäms funktionens egenskaper av konstanterna $A$, $k$, $\varphi$ 
+och $d$..\
+Vad som händer när man varierar dessa konstanter har du testat i Desmos-animeringen ovan.\
+Nu ska vi kika på ett verkligt exempel för att förstå vad dessa konstanter kan styra.\
+Vi släpper $\varphi$ och $d$ så länge och fokuserar på:
 
+$$
+y=f(x)=A\sin(kx)
+$$
+Obeservera att produkten $kx$ är en vinkel i radianer. Variabeln $x$ behöver inte vara en vinkel.\
+I Desmos ovan såg du att $k$ ändrade avståndet mellan vågtopparna. \
+När man har tiden $t$ som variabel istället för $x$ så byter man normalt $k$ mot $\omega$,\
+där $\omega$ är den sk vinkelfrekvensen eller vinkelhastigheten i enheten rad/s (radianer per sekund).
+Vi får då  funktionen:
+$$
+y=f(t)=A\sin(\omega t)
+$$
+Hur lång tid det är mellan vågtopparna är den sk periodtiden, $T$ och den tiden är direkt kopplad
+till tonens frekvens, $f$.\
+Om $\omega=1$ har vi $f(t)=A\sin(t)$ som ju har perioden $2\pi$, dvs $T=2\pi$ sekunder.\
+Sätter vi $\omega=2$ får vi $f(t)=A\sin(2t)$ som har perioden $\pi$, dvs $T=\pi$ s.\
+Detta kan du se i Desmos-animeringen ovan.\
+Alltså är $\omega=\dfrac{2\pi}{T}$. Frekvensen, $f$ definieras som $f=\dfrac{1}{T}$\
+$f$ har alltså enheten $\dfrac{1}{\text{s}}=$ Hz (Hertz).
+Vi får att $\omega=2\pi f$ och vår funktion kan skrivas:
+$$
+y=f(t)=A\sin(2\pi ft)
+$$ 
 
-{/*:::note[Viktig formel]
-asdf
-:::*/}
+En ren ton kan ses som en ren sinusfunktion med $t$ som variabel!\
+I animeringen nedan kan du ändra $A$ och $f$ och se vad som händer med tonens graf.\
+Slå på ljudet på din enhet!
+Amplituden, $A$ motsvarar tonens volym och $f$ styr tonläget (pitchen).\
+Ju högre frekvens desto "pipigare" pitch. Frekvensen, $f=440$ Hz är tonen A (ettstrukna A, A4). 
 
-{/*:::tip[Tips]
-asdf
-::: */}
+<SinusLjud />
+
+### Länkar till fler animationer att leka med
+
+* I [Sound Wave Visualizer](https://physandbox.com/waves/sound-visualizer) från 
+[PhysSandbox](https://physandbox.com/) kan du själv använda mikrofonen och tex vissla så ser du
+hur ljudsignalen ser ut och du ser också spektrumet, dvs vilka frekvenser som finns i signalen
+och hur mycket av varje frekvens (ett sk frekvensspektrum).\
+Sätt på en bra låt och spela in i mikrofonen så ser du hur frekvenserna varierar.\
+Detta är i princip en equalizer. Till vänster ser du basfrekvenserna och till höger diskanten.\
+I en riktig equalizer kan du ställa in hur mycket bas, diskant och mellanregister du vill ha.\
+Då filtrerar elektroniken signalen och släpper igenom mer eller mindre bas.\
+Detta görs med sinus och cosinusfunktioner!
+* I [funktionsgenerator online](https://funktionsgenerator.online/sv) kan du inte spela in ljud, 
+men du kan svepa frekvenser och höra toner. \
+Kolla hur höga frekvenser du kan höra! Högra grafen visar frekvensen i kHz. \
+Du kan också välja att spela olika rena toner. 
+Testa en och spela in den i Sound Wave Visualizer ovan!

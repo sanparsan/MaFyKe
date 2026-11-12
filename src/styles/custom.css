@@ -4,10 +4,10 @@
 	--sl-color-accent: #2563eb;
 	--sl-color-accent-high: #93c5fd;
 
-    /* Färg enbart för :::note-rutor (exempel: grön) */
-	--sl-color-blue-low: #064e3b;
-	--sl-color-blue: #10b981;
-	--sl-color-blue-high: #a7f3d0;
+    /* Färg enbart för :::note-rutor */
+	--sl-color-blue-low: #171c4f;
+	--sl-color-blue: #3347ff;
+	--sl-color-blue-high: #bdc4ff;
 }
 
 /* Accentfärger för ljust läge */
@@ -92,4 +92,33 @@ header.header .social-icons {
 	height: auto;
 	margin: 1.5rem auto;
 	display: block;
+}
+
+/* Begränsa maxbredden på :::note, :::tip, :::caution och :::danger */
+.sl-markdown-content .starlight-aside {
+	max-width: 500px;
+	width: 100%;
+	margin-inline: auto;
+}
+
+/* Lägg bild och text/note-ruta bredvid varandra på dator & platta */
+.sl-markdown-content .sida-vid-sida {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 1.5rem;
+	align-items: center;
+	margin: 1.5rem 0;
+}
+
+.sl-markdown-content .sida-vid-sida img,
+.sl-markdown-content .sida-vid-sida .starlight-aside {
+	margin: 0 !important;
+	max-width: 100%;
+}
+
+/* Stapla på varandra på smala mobilskärmar */
+@media (max-width: 768px) {
+	.sl-markdown-content .sida-vid-sida {
+		grid-template-columns: 1fr;
+	}
 }
