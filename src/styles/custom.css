@@ -85,3 +85,11 @@ header.header .social-icons {
 :root {
 	--sl-content-width: 58rem;
 }
+
+.sl-markdown-content img {
+	max-width: 500px;
+	width: 100%;
+	height: auto;
+	margin: 1.5rem auto;
+	display: block;
+}
