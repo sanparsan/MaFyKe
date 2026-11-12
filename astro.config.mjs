@@ -19,6 +19,7 @@ export default defineConfig({
 					lang: 'sv',
 				},
 			},
+			tableOfContents: false,
 			routeMiddleware: './src/routeData.ts',
 			components: {
 				PageTitle: './src/components/PageHeaderWithPrereqs.astro',
