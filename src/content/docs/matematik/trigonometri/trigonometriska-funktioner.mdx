@@ -18,8 +18,8 @@ import SinusLjud from '../../../../components/SinusLjud.astro';
 Trigonometriska funktioner är funktioner med sinus ($\sin$), cos ($\cos$) och tangens ($\tan$).
 
 
-Ett exempel på en allmän sinusfunktion är $y=f(x)=A\sin(kx+\varphi)+d$\
-där $A$, $k$, $\varphi$ och $d$ är konstanter (vanliga tal) som kan ändras så att funktionens 
+Ett exempel på en allmän sinusfunktion är $y=f(x)=A\sin(kx+\phi)+d$\
+där $A$, $k$, $\phi$ och $d$ är konstanter (vanliga tal) som kan ändras så att funktionens 
 graf får olika utseende.
 
 
@@ -28,7 +28,7 @@ Trigonometriska funktioner används extremt mycket inom teknik och naturvetenska
 * All trådlös kommunikation (radio, WiFi, 5G, GPS, Bluetooth...) då detta är ljus. 
 * Svängande fjädrar och annat som oscillerar, tex växelström & högtalarmembran.
 * Andra processer som har periodiskt förlopp (upprepar sig med jämna intervall).
-* Atomorbitler och vissa bindningar inom kemi.
+* Atomorbitaler och vissa bindningar inom kemi.
 * Vid komprimering av datafiler tex ljud (musiken på Spotify), bild (JPEG), video (mp4). 
 * Varje gång du lägger ett filter på en bild du tagit används ett "matematiskt maskineri" baserat på sinus-
 och cosinusfunktioner.
@@ -39,8 +39,10 @@ kan tänka dig!*
 
 
 ## Animeringar 
-I Manim-animeringen nedan visas hur vi skapar funktionen $y=\sin(x)$ ur enhetscirkeln.\
-Spela den i helskärmsläge så syns detaljerna bäst.
+I Manim-animeringen nedan visas hur vi skapar funktionen $y=\sin(x)$ ur enhetscirkeln.
+genom att rulla ut enhetscikeln så att vinkeln, $x$ hamnar på $x-axeln$ i grafen till $y=\sin(x)$.\
+$y$-axeln är densamma som i enhetscirkeln eftersom vi läser av $\sin(x)$ på $y$-axeln.
+Spela animeringen i helskärmsläge om du använder platta eller mobil och ha din enhet "liggande" så syns detaljerna bäst.\
 
 <ManimVideo src="/videos/enhetscirkeln-sinusgraf.mp4" caption="Enhetscirkeln till sin(x)." />
 
@@ -52,20 +54,40 @@ I nedanstående animering från [PhET](https://phet.colorado.edu/) kan du själv
 Här kan du välja på $\sin$, $\cos$ eller $\tan$, samt på grader och radianer.
 Du kan även välja att visa stardardvinklarna (special angles) och du kan välja att gå vilket 
 håll du vill (moturs eller medurs) i enhetscirkeln, samt flera varv för att se hur
-standardvärdena återkommer periodiskt. \
+standardvärdena återkommer *periodiskt* och att grafens utseende upprepar sig med jämna mellanrum i $x$-led. \
 Dra i röda pricken!
 
 <PhET src="https://phet.colorado.edu/sims/html/trig-tour/latest/trig-tour_en.html" title="Trig tour" />
 
 Animeringen här nedan är gjord i [Desmos](https://www.desmos.com/?lang=sv-SE). 
-Här kan du leka med funktionen: 
+Här kan du leka med den allmänna sinusfunktionen: 
 $$
 y=f(x)=A\sin(kx+\phi)+d
 $$ 
-och variera parametrara $A$, $k$, $\phi$ och $d$ och se vad som händer med grafen. 
+och variera parametrarna $A$, $k$, $\phi$ och $d$ och se vad som händer med grafen. 
 Vilken parameter styr vad? 
 
 <Desmos id="ytjdkydlmh" />
+
+Du har nu sett hur parametrarna $A$, $k$, $\phi$ och $d$ avgör funktionen egenskaper (grafens utseende).\
+Varje sin-funktion har en *period*, som är intervallet i $x$-led med vilken funktionen upprepar sitt utseende.\
+*Trigonometriska funktioner är periodiska!* Det är därför de beskriver vågor och oscillerande förlopp så bra.
+* $A$ brukar kallas *amplitud* och styr vertikala avståndet mellan funktionens toppar och dalar.
+Det verkar väl rimligt?\
+$A$ är ju bara en faktor du multiplicerar funktionen med.
+
+
+$\qquad A=\dfrac{(\text{avståndet mellan topp och dal})}{2}$.
+* $d$ är bara något vi adderar som flyttar hela funktionen upp eller ner. En ensam konstant term funkar ju så i vilken funktion som helst.
+* $k$ styr horistonella avståndet mellan topparna och därmed funktionens period.\
+Enklaste sin-funktionen $f(x)=\sin(x)$, där $k=1$ har perionden $2\pi$. Ett högre värde på $k$
+gör hörisontella avståndet mellan topparna mindre och minskar därmed perioden. Följande samband gäller:
+
+
+$\qquad\text{Perioden}=\dfrac{2\pi}{k}$.
+* $\varphi$ är den sk fasvinkeln eller fasförskjutningen. Den förskjuter hela kurvan i $x$-led.
+
+
 
 ## Ljud (toner) som exempel
 
