@@ -74,10 +74,11 @@ Varje sin-funktion har en *period*, som är intervallet i $x$-led med vilken fun
 *Trigonometriska funktioner är periodiska!* Det är därför de beskriver vågor och oscillerande förlopp så bra.
 * $A$ brukar kallas *amplitud* och styr vertikala avståndet mellan funktionens toppar och dalar.
 Det verkar väl rimligt?\
-$A$ är ju bara en faktor du multiplicerar funktionen med.
+$A$ är ju bara en faktor du multiplicerar funktionen med. Vi definierar $A$ som:
 
 
-$\qquad A=\dfrac{(\text{avståndet mellan topp och dal})}{2}$.
+$ \qquad A=\dfrac{(\text{avståndet mellan topp och dal})}{2}$
+
 * $d$ är bara något vi adderar som flyttar hela funktionen upp eller ner. En ensam konstant term funkar ju så i vilken funktion som helst.
 * $k$ styr horistonella avståndet mellan topparna och därmed funktionens period.\
 Enklaste sin-funktionen $f(x)=\sin(x)$, där $k=1$ har perionden $2\pi$. Ett högre värde på $k$
@@ -85,11 +86,31 @@ gör hörisontella avståndet mellan topparna mindre och minskar därmed periode
 
 
 $\qquad\text{Perioden}=\dfrac{2\pi}{k}$.
-* $\varphi$ är den sk fasvinkeln eller fasförskjutningen. Den förskjuter hela kurvan i $x$-led.
+* $\phi$ är den sk fasvinkeln eller fasförskjutningen. Den förskjuter hela kurvan i $x$-led.\
+Mer om denna vinkel nedan.
+### Fasvinkeln
+Fasvinkeln $\phi$ förskjuter alltså en sin- eller cos- kurva i $x$-led. Detta illustreras bäst genom
+att jämföra två kurvor.\
+Om $f(x)=\sin(x)$ och $g(x)=\sin\left(x+\dfrac{\pi}{3}\right)$ så är $g(x)$ fasförskjuten
+$\dfrac{\pi}{3}$ åt **vänster** relativt $f(x)$.\
+I detta fall kan man läsa av förskutningen direkt på $x$-axeln eftersom båda funktionerna är symmetriska kring $x$-axeln. \
+OBS: om $\phi=-\dfrac{\pi}{3}$ blir förskjutningen åt **höger**.
 
 
+Lägger vi till en konstant term till funktionerna tex $f(x)=\sin(x)+1$ och $g(x)=\sin\left(x+\dfrac{\pi}{3}\right)+1$ blir symmetrilinjen
+inte $x$-axeln ($y=0$) utan istället linjen $y=1$. Då kan fasförskjutningen läsas av direkt på
+symmetrilinjen $y=1$.
 
-## Ljud (toner) som exempel
+Har vi en konstant framför $x$, tex $f(x)=\sin(2x)$ och $g(x)=\sin\left(2x+\dfrac{\pi}{3}\right)$ 
+kommer fasförskjutningen halveras. Förskjutningen syns då enklast genom att skriva om 
+$g(x)=\sin\left(2x+\dfrac{\pi}{3}\right)=\sin\left(2\left(x+\dfrac{\pi}{6}\right)\right)$.
+
+Animeringen nedan visar dessa exempel och illustrerar hur vi kan få fram en sin-funktions
+uttryck ur dess graf. Notera hur funktionsuttrycken ändras med graferna och $\phi$.
+ <ManimVideo src="/videos/phaseshift.mp4" caption="Fasförskjutning." />
+
+
+## Tillämpningsexempel ljudvågor
 
 I $y=f(x)=A\sin(kx+\varphi)+d$ bestäms funktionens egenskaper av konstanterna $A$, $k$, $\varphi$ 
 och $d$..\
