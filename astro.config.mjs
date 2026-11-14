@@ -46,6 +46,10 @@ export default defineConfig({
 					label: 'Kemi',
 					items: [{ autogenerate: { directory: 'kemi' } }]
 				},
+				{
+					label: 'EdTech',
+					items: [{ autogenerate: { directory: 'edtech' } }]
+				},
 			],
 		}),
 

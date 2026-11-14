@@ -101,7 +101,7 @@ header.header .social-icons {
 	margin-inline: auto;
 }
 
-/* Lägg bild och text/note-ruta bredvid varandra på dator & platta */
+/* Lägg bild och text/note-ruta bredvid varandra på dator & liggande platta */
 .sl-markdown-content .sida-vid-sida {
 	display: grid;
 	grid-template-columns: 1fr 1fr;
@@ -110,15 +110,20 @@ header.header .social-icons {
 	margin: 1.5rem 0;
 }
 
+.sl-markdown-content .sida-vid-sida > * {
+	min-width: 0;
+}
+
 .sl-markdown-content .sida-vid-sida img,
 .sl-markdown-content .sida-vid-sida .starlight-aside {
 	margin: 0 !important;
 	max-width: 100%;
 }
 
-/* Stapla på varandra på smala mobilskärmar */
-@media (max-width: 768px) {
+/* Stapla på varandra på mobil och stående surfplatta */
+@media (max-width: 960px) {
 	.sl-markdown-content .sida-vid-sida {
 		grid-template-columns: 1fr;
 	}
 }
+
